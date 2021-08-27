@@ -1,3 +1,21 @@
+var firebaseConfig = {
+    apiKey: "AIzaSyB0PH_Nto6D_fAaJ2axTIoC0Q7egzDm8VA",
+    authDomain: "situal-cave.firebaseapp.com",
+    databaseURL: "https://situal-cave-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "situal-cave",
+    storageBucket: "situal-cave.appspot.com",
+    messagingSenderId: "456412005724",
+    appId: "1:456412005724:web:09bf3739f6b5c889226d99",
+    measurementId: "G-CSR1F49QJK"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  var database = firebase.database();
+  var storage = firebase.storage();
+  var picture="";
+  console.log(database);
+  console.log(storage);
 
 (function() {
   "use strict";
@@ -282,3 +300,79 @@
   });
 
 })();
+event_getter=()=>
+{
+  document.getElementById('events').innerHTML="";
+  var accessed = database.ref("/events/");
+    accessed.off();
+    accessed.on("child_added",function(data)
+    {
+      var newdata=data.val();
+      var key=data.key;
+      var count=data.numChildren();
+      console.log(newdata);
+      document.getElementById('events').innerHTML+='<div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">'+
+            '<div class="member">'+
+              '<div class="member-img">'+
+                '<img src="'+newdata.image[0]+'" class="img-fluid" alt="">'+
+              '</div>'+
+              '<div class="member-info">'+
+                '<h4>'+newdata.title[0]+'</h4>'+
+                '<span>'+newdata.location[0]+'</span>'+
+                '<p>'+newdata.body[0]+'</p>'+
+                '<a class="getstarted scrollto" href="">Book now</a>'+
+              '</div>'+
+            '</div>'+
+          '</div>';
+      
+
+  },function(error)
+  {
+    Alert("No Event");
+    
+  });
+}
+blog_getter=()=>
+{
+  document.getElementById('blogs').innerHTML="";
+  var accessed = database.ref("/blogs/");
+    accessed.off();
+    accessed.on("child_added",function(data)
+    {
+      var newdata=data.val();
+      var key=data.key;
+      var count=data.numChildren();
+      console.log(newdata);
+      document.getElementById('blogs').innerHTML+='<article class="entry">'+
+
+              '<div class="entry-img">'+
+                '<img src="'+newdata.image[0]+'" alt="" class="img-fluid">'+
+              '</div>'+
+
+              '<h2 class="entry-title">'+
+                '<a href="#">'+newdata.title[0]+'</a>'+
+              '</h2>'+
+
+              '<div class="entry-meta">'+
+                '<ul>'+
+                  '<li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#">Admin</a></li>'+
+                  '<li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time datetime="'+newdata.published[0]+'">'+newdata.published[0]+'</time></a></li>'+
+                '</ul>'+
+              '</div>'+
+
+              '<div class="entry-content">'+
+                '<p>'+newdata.body[0]+'</p>'+
+                
+              '</div>'+
+
+            '</article>';
+      
+
+  },function(error)
+  {
+    Alert("No Event");
+    
+  });
+}
+
+

@@ -30,7 +30,7 @@
 
 </head>
 
-<body>
+<body onload=event_getter()>
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top">
@@ -67,7 +67,7 @@
             </ul>
           </li> -->
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="getstarted scrollto" href="#about">Book Online</a></li>
+          <li><a class="getstarted scrollto" href="#team">Book Online</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -88,7 +88,7 @@
              adventure through our VR headsets and immerse yourself whole new experience.</p>
           <div data-aos="fade-up" data-aos-delay="600">
             <div class="text-center text-lg-start">
-              <a href="#about" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+              <a href="#team" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
                 <span>Book Online</span>
                 <i class="bi bi-arrow-right"></i>
               </a>
@@ -101,7 +101,7 @@
           <br>
           <br>
 
-          <img src="assets/img/hero-img2.svg" class="img-fluid" alt="" >
+          <img src="assets/img/hero1.jpg" class="img-fluid" alt="" style="border-radius: 50vh;">
         </div>
       </div>
     </div>
@@ -567,7 +567,7 @@
           <p>Available events this month.</p>
         </header>
 
-        <div class="row gy-4">
+        <div class="row gy-4" id="events">
 
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="member">
@@ -919,9 +919,17 @@
   <script src="assets/vendor/purecounter/purecounter.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
 
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-storage.js"></script>
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+<script src="assets/js/main.js"></script>
 
 </body>
 
