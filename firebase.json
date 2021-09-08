@@ -1,0 +1,27 @@
+{
+  "functions": {
+    "source": "functions"
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "ui": {
+      "enabled": true
+    }
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

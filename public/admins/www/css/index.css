@@ -1,0 +1,341 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    /*background-color:#E4E4E4;*/
+    /*background-color:#fff;*/
+    background:url(../img/support.svg);
+    background-repeat: no-repeat;
+    background-size: cover, contain;
+    
+    /*background-image:linear-gradient(to bottom, #A7A7A7 0%, #E4E4E4 51%);*/
+    font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
+    font-size:12px;
+    height:100%;
+
+    margin:0px;
+    padding:0px;
+    /* Padding to avoid the "unsafe" areas behind notches in the screen */
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+    text-transform:uppercase;
+    width:100%;
+}
+
+/* Portrait layout (default) */
+.app {
+    background:#fff; /* 170px x 200px */
+    position:fixed;             /* position in the center of the screen */
+    height:100vh;                   /* text area height */
+    width:100vw;                   /* text area width */
+    text-align:center;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+    
+}
+.logo
+{
+    width: 8vh;
+    height: 8vh;
+    margin:5vh;
+}
+label
+{
+    text-align: left;
+    font-size: 2vh;
+    font-weight: bold;
+    color: #666;
+    
+}
+.cordova-camera-select
+{
+    width: 90vw;
+    height: 90vh;
+    background: #fff;
+    position: fixed;
+    overflow: hidden;
+    margin:0;
+    border:none;
+    margin-left: 3vw;
+    margin-top: 4.5vh;
+}
+input,textarea,select
+{
+    width:30vh;
+    /*height:20px;*/
+    height:4vh;
+    border:solid 0.4vh #eee;
+    border-radius: 0.3vh;
+    padding-left:2vw;
+    padding-right: 2vw;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 2vh;
+    margin-left: 0;
+    color: #999;
+    background: #fff;
+    outline: none;
+}
+
+.menu_option
+{
+    width: 16vh;
+    height: 16vh;
+    margin: 0.5vh;
+    opacity: 0.5;
+    transition: opacity 0.2s, width 0.2s, height 0.2s;
+    box-shadow: 0vh 0.5vh 20px -2px #eee;
+    padding: 6vh;
+    border-radius: 1vh;
+    font-size: 1.5vh;
+    font-weight: bold;
+
+}
+.menu_option:hover
+{
+    opacity: 1;
+    width: 20vh;
+    height: 20vh;
+}
+.btn
+{
+    min-width: 20vh;
+    height: 5vh;
+    border: none;
+    border-radius: 0.3vh;
+    /* padding-left: 2vw; */
+    /* padding-right: 2vw; */
+    /* padding-top: 5px; */
+    /* padding-bottom: 5px; */
+    margin: 2vh;
+    margin-left: 0;
+    color: #fff;
+    background: #8d0608;
+    transition: width 0.3s, background 0.3s;
+}
+.btn:active
+{
+    width: 40vh;
+    background: : #fff;
+}
+.header
+{
+    top:2vh;
+    position: fixed;
+    width: 100vw;
+    height: 15vh;
+
+}
+.title
+{
+    font-size:2.5vh;
+    color: #666;
+    font-weight: bold;
+}
+.blog_content 
+{
+    width: 40vw;
+    min-height: 40vh;
+    padding: 1vh;
+    margin: 0.2vh;
+    background: #fff;
+    box-shadow: 0vh 0.5vh 2vh 1vh #eee;
+    border-radius: 1vh;
+    margin-bottom: 2vh;
+    word-break: break-word;
+}
+.blog_img
+{
+    width: 100%;
+    height: 50vh;
+    border-radius: 1vh 1vh 0vh 0vh;
+    margin-bottom:1vh;
+
+}
+.blog_title
+{
+    font-size: 3vh;
+    font-weight: bold;
+    margin:2vh;
+
+}
+.blog_des
+{
+    font-size: 2vh;
+    margin:2vh;
+}
+.content_display
+{
+    /*width: 24vw;*/
+    width: 90vw;
+    min-height:20vh; 
+    max-height:80vh; 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: none;
+    /*border:solid 0.5vh #000;*/
+    overflow: scroll;
+    padding-top:2vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-bottom: 2vh;
+    flex-wrap: wrap;
+}
+.content
+{
+    /*width: 24vw;*/
+    width: auto;
+    min-height:auto; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background: none;
+    overflow: scroll;
+}
+.content2
+{    /* width: 24vw; */
+    width: auto;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background: none;
+    overflow: scroll;
+}
+.row_style
+{
+    flex-direction: row;
+}
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:500px) {
+    .app {
+    background:#fff; /* 170px x 200px */
+    position:fixed;             /* position in the center of the screen */
+    height:100vh;                   /* text area height */
+    width:100vw;                   /* text area width */
+    text-align:center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+}
+.content
+{
+    /*width: 24vw;*/
+    width: auto;
+    min-height:auto; 
+    display: flex;
+    
+    justify-content: flex-start;
+    align-items: flex-start;
+    background: none;
+    overflow: scroll;
+}
+.content2
+{    /* width: 24vw; */
+    width: auto;
+    min-height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background: none;
+    overflow: scroll;
+}
+.menu_option {
+    width: 16vh;
+    height: 16vh;
+    margin: 0.5vh;
+    opacity: 0.5;
+    transition: opacity 0.2s, width 0.2s, height 0.2s;
+    box-shadow: 0vh 0.5vh 20px -2px #eee;
+    padding: 6vh;
+    border-radius: 1vh;
+    font-size: 1.5vh;
+    font-weight: bold;
+}
+
+}
+
+h1 {
+    font-size:24px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+.event {
+    border-radius:4px;
+    color:#FFFFFF;
+    font-size:12px;
+    margin:0px 30px;
+    padding:2px 0px;
+}
+
+.event.listening {
+    background-color:#333333;
+    display:block;
+}
+
+.event.received {
+    background-color:#4B946A;
+    display:none;
+}
+
+#deviceready.ready .event.listening { display: none; }
+#deviceready.ready .event.received { display: block; }
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+
+
+@media screen and (prefers-color-scheme: dark) {
+    body {
+        background-image:linear-gradient(to bottom, #585858 0%, #1B1B1B 51%);
+    }
+}
