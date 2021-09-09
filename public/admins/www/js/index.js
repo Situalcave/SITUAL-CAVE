@@ -220,7 +220,7 @@ bookticket_admin=()=>
             mobile:[mobile_number]
 
         });
-        document.getElementById('ticket_name').innerHTML='Ticket ID : '+event;
+        document.getElementById('ticket_name').innerHTML='Ticket ID : '+payid;
         document.getElementById('ticket_id').innerHTML='Event Name : '+event_name;
         document.getElementById('ticket_owner').innerHTML='Owner : '+email_;
         alert("Event Booked!");
