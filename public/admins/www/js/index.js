@@ -203,7 +203,7 @@ bookticket_admin=()=>
     var email_=document.getElementById('b_email').value;
     var mobile_number=document.getElementById('b_number').value;
     var user=database.ref("/tickets_booking/"+payid);
-    var r = confirm("Please collect £"+price+" form the customer. Click 'OK' to confirm ticket booking");
+    var r = confirm("Please collect £"+price+" from the customer. Click 'OK' to confirm ticket booking");
   if (r == true) {
     
     if(payid=="" || event=="" || email_=="")
