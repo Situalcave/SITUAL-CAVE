@@ -15,6 +15,49 @@
   var picture="";
   console.log(database);
   console.log(storage);
+  bookticket=()=>
+{
+    document.getElementById("reserveBTN").style.display="none";
+    var d = new Date();
+    var hrs=d.getHours();
+    var mins=d.getMinutes();
+    var sec=d.getSeconds();
+    var date=d.getDate();
+    var month=d.getMonth();
+    var year=d.getYear();
+    var t_date="ST-"+date+""+month+""+year+""+hrs+""+mins+""+sec;
+
+    var name=document.getElementById("name").value;
+    var payid=document.getElementById("r_number").value;
+    var mobile_number=document.getElementById("b_number").value;
+    var ddate=document.getElementById("booking_day").value;
+
+    var user=database.ref("/tickets_booking/"+t_date);
+    if(payid=="" || name=="" || ddate=="")
+    {
+        alert("Erro occured!");
+    }
+
+    else
+    {
+            /*user.update*/
+        user.update({
+            eventID:[payid],
+            cost:["booked & payed online"],
+            email:[name],
+            mobile:[mobile_number],
+            schedule:[ddate]
+
+        });
+        alert("Your Reservation number is '"+t_date+"' Please keep it in a safe place.");
+        setTimeout(()=>
+          {
+            window.location.replace("index.html");
+          },5000);
+        
+        //admin_ability();
+    }
+}
 
 (function() {
   "use strict";
@@ -320,7 +363,7 @@ event_getter=()=>
               '<div class="member-info">'+
                 '<h4>'+newdata.title[0]+'</h4>'+
                 '<span>'+newdata.location[0]+'</span>'+
-                '<p>'+newdata.body[0]+'<br><b>Price : '+newdata.price[0]+' GBP</b></p>'+
+                '<p>'+newdata.body[0]+'<br><b>Price : £'+newdata.price[0]+'</b></p>'+
                 '<a class="getstarted scrollto" href="'+newdata.url[0]+'" style="padding: 1.5vh;background:#027D61;color:#fff;border-radius: 1vh;">Book Now</a>'+/*<a class="getstarted scrollto" id='+key+' onclick=buynow(this.id,"'+newdata.price[0]+'")>Book now</a>*/
               '</div>'+
             '</div>'+
@@ -330,7 +373,7 @@ event_getter=()=>
 
   },function(error)
   {
-    Alert("No Event");
+    //Alert("No Event");
     
   });
     
@@ -391,34 +434,5 @@ blog_getter=()=>
     
   });
 }
-bookticket=(payid,event,email,mobile_number,price)=>
-{
-    var d = new Date();
-    var hrs=d.getHours();
-    var mins=d.getMinutes();
-    var sec=d.getSeconds();
-    var date=d.getDate();
-    var month=d.getMonth();
-    var year=d.getYear();
-    var t_date=date+""+month+""+year+""+hrs+""+mins+""+sec;
-    var user=database.ref("/tickets_booking/"+t_date);
-    if(payid=="" || event=="" || email=="")
-    {
-        alert("Erro occured!");
-    }
-    else
-    {
-            /*user.update*/
-        user.update({
-            payID:[payid],
-            eventID:[event],
-            cost:[price],
-            email:[email],
-            mobile:[mobile_number]
 
-        });
-        alert("Event Booked");
-        //admin_ability();
-    }
-}
 

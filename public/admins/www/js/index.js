@@ -177,6 +177,8 @@ confirm_ticket=()=>
                     '</div>'+
                     '<label>Customer Name</label>'+
                     '<input type="text" placeholder="John Doe" id="b_email">'+
+                    '<label>Schedule date</label>'+
+                    '<input type="datetime-local" style="padding: 1vh; background: none; border:none; color: #7D021E;" id="theday">'+
                     '<label>Mobile Number</label>'+
                     '<input type="text" placeholder="+4470467783734" id="b_number">'+
                     '<div class="content row_style">'+
@@ -202,6 +204,7 @@ bookticket_admin=()=>
     var event_name=document.getElementById('vent_name').innerHTML;
     var email_=document.getElementById('b_email').value;
     var mobile_number=document.getElementById('b_number').value;
+    var scheduleDay=document.getElementById('theday').value;
     var user=database.ref("/tickets_booking/"+payid);
     var r = confirm("Please collect £"+price+" from the customer. Click 'OK' to confirm ticket booking");
   if (r == true) {
@@ -217,12 +220,13 @@ bookticket_admin=()=>
             eventID:[event],
             cost:[price],
             email:[email_],
-            mobile:[mobile_number]
+            mobile:[mobile_number],
+            schedule:[scheduleDay]
 
         });
         document.getElementById('ticket_name').innerHTML='Ticket ID : '+payid;
         document.getElementById('ticket_id').innerHTML='Event Name : '+event_name;
-        document.getElementById('ticket_owner').innerHTML='Owner : '+email_;
+        document.getElementById('ticket_owner').innerHTML='Owner : '+email_+"<br>Booking for : "+scheduleDay;
         alert("Event Booked!");
         document.getElementById('The_ticket').style.display="flex";
         document.getElementById('confirm_section').style.display="none";
@@ -300,7 +304,7 @@ admin_ability=()=>
                 '<div class="menu_option" onclick=add_event()>'+
                     '<img src="img/add_event.svg">'+
                     '<p>Add An Event</p>'+
-                '</div></div><div class="content row_style"><button class="btn" >Website</button><button class="btn" id="logout" onclick=logoutAccess()>Logout</button><button class="btn" id="logout" >FAQ</button></div>';
+                '</div></div><div class="content row_style"><a href="https://situalcave.com"><button class="btn" >Website</button></a><button class="btn" id="logout" onclick=logoutAccess()>Logout</button><a href="https://situalcave.com/#faq"><button class="btn" >FAQ</button></a></div>';
 }
 upload_event=()=>
 {
@@ -466,7 +470,15 @@ admin_confirm_ticket=()=>
     accessed.once('value', function(snapshot) {
     var exists = (snapshot.val() !== null);
     if (exists) {
-        alert("Ticket is valid ");
+        var newdata=snapshot.val();
+        console.log(newdata);
+        try{
+            alert("Ticket is valid, scheduled for use on "+newdata.schedule[0]);
+        }
+        catch(e)
+        {
+            alert("Ticket is valid ");
+        }
         var r = confirm("Click 'OK' to Use ticket!");
   if (r == true) {
     use_ticket(t_id);

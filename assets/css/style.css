@@ -37,7 +37,23 @@ section {
   text-align: center;
   padding-bottom: 40px;
 }
-
+input,textarea,select
+{
+    width:30vh;
+    /*height:20px;*/
+    height:4vh;
+    border:solid 0.4vh #eee;
+    border-radius: 0.3vh;
+    padding-left:2vw;
+    padding-right: 2vw;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0.5vh;
+    margin-left: 0;
+    color: #999;
+    background: #fff;
+    outline: none;
+}
 .section-header h2 {
   font-size: 13px;
   letter-spacing: 1px;
