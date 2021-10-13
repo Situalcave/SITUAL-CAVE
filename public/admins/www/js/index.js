@@ -199,6 +199,7 @@ bookticket_admin=()=>
     var month=d.getMonth();
     var year=d.getYear();
     var payid="ST-"+date+""+month+""+year+""+hrs+""+mins+""+sec;
+    var payid2="Cash";
     var price=document.getElementById('shown_price').innerHTML;
     var event=document.getElementById('vent_id').innerHTML;
     var event_name=document.getElementById('vent_name').innerHTML;
@@ -217,7 +218,7 @@ bookticket_admin=()=>
     {
             /*user.update*/
         user.update({
-            eventID:[event],
+            eventID:[payid2],
             cost:[price],
             email:[email_],
             mobile:[mobile_number],
@@ -473,11 +474,11 @@ admin_confirm_ticket=()=>
         var newdata=snapshot.val();
         console.log(newdata);
         try{
-            alert("Ticket is valid, scheduled for use on "+newdata.schedule[0]);
+            alert("Ticket is valid, scheduled for use on "+newdata.schedule[0]+", here is the payment id : "+newdata.eventID[0] );
         }
         catch(e)
         {
-            alert("Ticket is valid ");
+            alert("Ticket is valid");
         }
         var r = confirm("Click 'OK' to Use ticket!");
   if (r == true) {

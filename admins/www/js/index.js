@@ -199,6 +199,7 @@ bookticket_admin=()=>
     var month=d.getMonth();
     var year=d.getYear();
     var payid="ST-"+date+""+month+""+year+""+hrs+""+mins+""+sec;
+    var payid2="Cash";
     var price=document.getElementById('shown_price').innerHTML;
     var event=document.getElementById('vent_id').innerHTML;
     var event_name=document.getElementById('vent_name').innerHTML;
@@ -217,7 +218,7 @@ bookticket_admin=()=>
     {
             /*user.update*/
         user.update({
-            eventID:[payid],
+            eventID:[payid2],
             cost:[price],
             email:[email_],
             mobile:[mobile_number],
