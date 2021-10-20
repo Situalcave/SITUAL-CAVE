@@ -316,7 +316,7 @@ admin_ability=()=>
                 '<div class="menu_option" onclick=add_event()>'+
                     '<img src="img/add_event.svg">'+
                     '<p>Add An Event</p>'+
-                '</div></div><div class="content row_style"><a href="https://situalcave.com"><button class="btn" >Website</button></a><button class="btn" id="logout" onclick=logoutAccess()>Logout</button><a href="https://situalcave.com/home.html/#faq"><button class="btn" >FAQ</button></a></div>';
+                '</div></div><div class="content row_style"><a href="https://situalcave.com"><button class="btn" >Website</button></a><button class="btn" id="logout" onclick=logoutAccess()>Logout</button><a href="https://situalcave.com/home.html#faq"><button class="btn" >FAQ</button></a></div>';
 }
 upload_event=()=>
 {
