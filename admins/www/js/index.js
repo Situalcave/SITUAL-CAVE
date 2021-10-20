@@ -197,8 +197,8 @@ bookticket_admin=()=>
     var sec=d.getSeconds();
     var date=d.getDate();
     var month=d.getMonth();
-    var year=d.getYear();
-    var payid="ST-"+date+""+month+""+year+""+hrs+""+mins+""+sec;
+    var year=d.getFullYear();
+    /*var payid="ST-"+date+""+month+""+year+""+hrs;*/
     var payid2="Cash";
     var price=document.getElementById('shown_price').innerHTML;
     var event=document.getElementById('vent_id').innerHTML;
@@ -206,6 +206,7 @@ bookticket_admin=()=>
     var email_=document.getElementById('b_email').value;
     var mobile_number=document.getElementById('b_number').value;
     var scheduleDay=document.getElementById('theday').value;
+    var payid="ST-"+scheduleDay;
     var user=database.ref("/tickets_booking/"+payid);
     var r = confirm("Please collect £"+price+" from the customer. Click 'OK' to confirm ticket booking");
   if (r == true) {
@@ -216,8 +217,14 @@ bookticket_admin=()=>
     }
     else
     {
-            /*user.update*/
-        user.update({
+        user.once('value', function(snapshot) {
+                var exists = (snapshot.val() !== null);
+                if (exists) {
+                        alert("Please select another reservation, your selected date/time is not avaliable!");
+
+                } else {
+             
+                    user.update({
             eventID:[payid2],
             cost:[price],
             email:[email_],
@@ -227,12 +234,16 @@ bookticket_admin=()=>
         });
         document.getElementById('ticket_name').innerHTML='Ticket ID : '+payid;
         document.getElementById('ticket_id').innerHTML='Event Name : '+event_name;
-        document.getElementById('ticket_owner').innerHTML='Owner : '+email_+"<br>Booking for : "+scheduleDay;
+        document.getElementById('ticket_owner').innerHTML='Owner : '+email_/*+"<br>Booking for : "+scheduleDay*/;
         alert("Event Booked!");
         document.getElementById('The_ticket').style.display="flex";
         document.getElementById('confirm_section').style.display="none";
         document.getElementById('book_section').style.display="none";
         document.getElementById('Down_btn').style.display="block";
+                }
+          });
+            /*user.update*/
+        
         //admin_ability();
     }
 
@@ -305,7 +316,7 @@ admin_ability=()=>
                 '<div class="menu_option" onclick=add_event()>'+
                     '<img src="img/add_event.svg">'+
                     '<p>Add An Event</p>'+
-                '</div></div><div class="content row_style"><a href="https://situalcave.com"><button class="btn" >Website</button></a><button class="btn" id="logout" onclick=logoutAccess()>Logout</button><a href="https://situalcave.com/#faq"><button class="btn" >FAQ</button></a></div>';
+                '</div></div><div class="content row_style"><a href="https://situalcave.com"><button class="btn" >Website</button></a><button class="btn" id="logout" onclick=logoutAccess()>Logout</button><a href="https://situalcave.com/home.html/#faq"><button class="btn" >FAQ</button></a></div>';
 }
 upload_event=()=>
 {
@@ -315,7 +326,7 @@ upload_event=()=>
     var sec=d.getSeconds();
     var date=d.getDate();
     var month=d.getMonth();
-    var year=d.getYear();
+    var year=d.getFullYear();
     var t_date=date+"-"+month+"-"+year;
     var email=document.getElementById('e_title').value;
     var loc=document.getElementById('e_location').value;
@@ -365,7 +376,7 @@ upload_blog=()=>
     var sec=d.getSeconds();
     var date=d.getDate();
     var month=d.getMonth();
-    var year=d.getYear();
+    var year=d.getFullYear();
     var t_date=date+"-"+month+"-"+year;
     var title=document.getElementById('b_title').value;
     var body=document.getElementById('b_body').value;
@@ -588,7 +599,7 @@ uploadImage=(x,path)=>
   var sec=d.getSeconds();
   var date=d.getDate();
   var month=d.getMonth();
-  var year=d.getYear();
+  var year=d.getFullYear();
   var result=date+""+""+month+""+""+year+""+hrs+""+mins+""+sec;
   //////console.log(result);
   var storageRef = firebase.storage().ref(""+path+"/");

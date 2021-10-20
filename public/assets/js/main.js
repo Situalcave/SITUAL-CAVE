@@ -17,21 +17,22 @@
   console.log(storage);
   bookticket=()=>
 {
-    document.getElementById("reserveBTN").style.display="none";
+    
     var d = new Date();
     var hrs=d.getHours();
     var mins=d.getMinutes();
     var sec=d.getSeconds();
     var date=d.getDate();
     var month=d.getMonth();
-    var year=d.getYear();
-    var t_date="ST-"+date+""+month+""+year+""+hrs+""+mins+""+sec;
+    var year=d.getFullYear();
+/*    var t_date="ST-"+date+""+month+""+year+""+hrs;*/
 
     var name=document.getElementById("name").value;
-    var payid=document.getElementById("r_number").value;
+    //var payid=document.getElementById("r_number").value;
+    var payid="Booked Online! Please Ask For Payment Recipt";
     var mobile_number=document.getElementById("b_number").value;
     var ddate=document.getElementById("booking_day").value;
-
+    var t_date="ST-"+ddate;
     var user=database.ref("/tickets_booking/"+t_date);
     if(payid=="" || name=="" || ddate=="")
     {
@@ -40,20 +41,35 @@
 
     else
     {
-            /*user.update*/
-        user.update({
+
+            user.once('value', function(snapshot) {
+                var exists = (snapshot.val() !== null);
+                if (exists) {
+                    
+                    alert("Please select another reservation, your selected date/time is not avaliable!");
+                } else {
+             
+                    user.update({
             eventID:[payid],
-            cost:["booked & payed online"],
+            cost:["In Recipt"],
             email:[name],
             mobile:[mobile_number],
             schedule:[ddate]
 
         });
         alert("Your Reservation number is '"+t_date+"' Please keep it in a safe place.");
+        document.getElementById("reserveBTN").style.display="none";
         setTimeout(()=>
           {
             window.location.replace("index.html");
           },5000);
+
+
+
+                }
+          });
+            /*user.update*/
+        
         
         //admin_ability();
     }
@@ -345,6 +361,9 @@
 event_getter=()=>
 {
   document.getElementById('events').innerHTML="";
+  var d = new Date();
+  var addedYear=d.getDate()+"-"+d.getMonth()+"-"+d.getFullYear();
+  mindate=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate()+"T00:00";
   //var DID="";
   var accessed = database.ref("/events/");
     accessed.off();
@@ -363,8 +382,10 @@ event_getter=()=>
               '<div class="member-info">'+
                 '<h4>'+newdata.title[0]+'</h4>'+
                 '<span>'+newdata.location[0]+'</span>'+
-                '<p>'+newdata.body[0]+'<br><b>Price : £'+newdata.price[0]+'</b></p>'+
-                '<a class="getstarted scrollto" href="'+newdata.url[0]+'" style="padding: 1.5vh;background:#027D61;color:#fff;border-radius: 1vh;">Book Now</a>'+/*<a class="getstarted scrollto" id='+key+' onclick=buynow(this.id,"'+newdata.price[0]+'")>Book now</a>*/
+                '<p style="text-align:left;">'+newdata.body[0]+'<br><b>Price : £'+newdata.price[0]+'</b></p>'+
+                '<p style="margin-top: -4vh;text-align:left;"><b>Check Avaliablity</b><br></p>'+
+                '<input min="'+mindate+'" type="datetime-local" style="margin-top: -3vh;margin-bottom: 3vh;padding: 1vh; background: none; border:none; color: #7D021E;" id="booking_day" onchange=checkReservations(this.value,"'+DID+'")>'+
+                '<a class="getstarted scrollto" href="'+newdata.url[0]+'" style="display:none; padding: 1.5vh;background:#027D61;color:#fff;border-radius: 1vh;" id="'+DID+'">Book Now</a>'+/*<a class="getstarted scrollto" id='+key+' onclick=buynow(this.id,"'+newdata.price[0]+'")>Book now</a>*/
               '</div>'+
             '</div>'+
           '</div>';
@@ -376,6 +397,27 @@ event_getter=()=>
     //Alert("No Event");
     
   });
+    
+}
+checkReservations=(value,x)=>
+{
+    //var ddate=document.getElementById("booking_day").value;
+    var t_date="ST-"+value;
+    console.log(t_date);
+    var user=database.ref("/tickets_booking/"+t_date);
+    
+            user.once('value', function(snapshot) {
+                var exists = (snapshot.val() !== null);
+                if (exists) {
+                    document.getElementById(x).style.display="none";
+                    alert("Please select another reservation, your selected date/time is not avaliable!");
+                   
+
+                } else {
+                //alert("your selected date/time is avaliable!");
+                document.getElementById(x).style.display="block";
+            }
+              });
     
 }
 buynow=(event,price)=>
