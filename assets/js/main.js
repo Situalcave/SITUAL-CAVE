@@ -364,6 +364,7 @@ event_getter=()=>
   var d = new Date();
   var addedYear=d.getDate()+"-"+d.getMonth()+"-"+d.getFullYear();
   mindate=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate()+"T00:00";
+  "2021-06-10T10:30"
   //var DID="";
   var accessed = database.ref("/events/");
     accessed.off();
@@ -384,7 +385,7 @@ event_getter=()=>
                 '<span>'+newdata.location[0]+'</span>'+
                 '<p style="text-align:left;">'+newdata.body[0]+'<br><b>Price : £'+newdata.price[0]+'</b></p>'+
                 '<p style="margin-top: -4vh;text-align:left;"><b>Check Avaliablity</b><br></p>'+
-                '<input min="'+mindate+'" type="datetime-local" style="border-bottom: solid 0.2vh;margin-top: -3vh;margin-bottom: 3vh;padding: 1vh; background: none; border:none; color: #7D021E;" id="booking_day" onchange=checkReservations(this.value,"'+DID+'")>'+
+                '<input placeholder="2021-06-10T10:30" min="'+mindate+'" type="datetime-local" style="margin-top: -3vh;margin-bottom: 3vh;padding: 1vh; background: none; border:none; color: #7D021E;border-bottom: solid 0.2vh;" id="booking_day" onchange=checkReservations(this.value,"'+DID+'")>'+
                 '<a class="getstarted scrollto" href="'+newdata.url[0]+'" style="display:none; padding: 1.5vh;background:#027D61;color:#fff;border-radius: 1vh;" id="'+DID+'">Book Now</a>'+/*<a class="getstarted scrollto" id='+key+' onclick=buynow(this.id,"'+newdata.price[0]+'")>Book now</a>*/
               '</div>'+
             '</div>'+
