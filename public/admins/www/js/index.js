@@ -178,7 +178,7 @@ confirm_ticket=()=>
                     '<label>Customer Name</label>'+
                     '<input type="text" placeholder="John Doe" id="b_email">'+
                     '<label>Schedule date</label>'+
-                    '<input type="datetime-local" style="padding: 1vh; background: none; border:none; color: #7D021E;" id="theday">'+
+                    '<input type="datetime-local" style="border-bottom: solid 0.2vh;padding: 1vh; background: none; border:none; color: #7D021E;" id="theday">'+
                     '<label>Mobile Number</label>'+
                     '<input type="text" placeholder="+4470467783734" id="b_number">'+
                     '<div class="content row_style">'+

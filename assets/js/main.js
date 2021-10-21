@@ -384,7 +384,7 @@ event_getter=()=>
                 '<span>'+newdata.location[0]+'</span>'+
                 '<p style="text-align:left;">'+newdata.body[0]+'<br><b>Price : £'+newdata.price[0]+'</b></p>'+
                 '<p style="margin-top: -4vh;text-align:left;"><b>Check Avaliablity</b><br></p>'+
-                '<input min="'+mindate+'" type="datetime-local" style="margin-top: -3vh;margin-bottom: 3vh;padding: 1vh; background: none; border:none; color: #7D021E;" id="booking_day" onchange=checkReservations(this.value,"'+DID+'")>'+
+                '<input min="'+mindate+'" type="datetime-local" style="border-bottom: solid 0.2vh;margin-top: -3vh;margin-bottom: 3vh;padding: 1vh; background: none; border:none; color: #7D021E;" id="booking_day" onchange=checkReservations(this.value,"'+DID+'")>'+
                 '<a class="getstarted scrollto" href="'+newdata.url[0]+'" style="display:none; padding: 1.5vh;background:#027D61;color:#fff;border-radius: 1vh;" id="'+DID+'">Book Now</a>'+/*<a class="getstarted scrollto" id='+key+' onclick=buynow(this.id,"'+newdata.price[0]+'")>Book now</a>*/
               '</div>'+
             '</div>'+
