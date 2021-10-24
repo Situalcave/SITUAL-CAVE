@@ -178,7 +178,8 @@ confirm_ticket=()=>
                     '<label>Customer Name</label>'+
                     '<input type="text" placeholder="John Doe" id="b_email">'+
                     '<label>Schedule date</label>'+
-                    '<input placeholder="2021-06-10T10:30" type="datetime-local" style="padding: 1vh; background: none; border:none; color: #7D021E;border-bottom: solid 0.2vh;" id="theday">'+
+                    '<input placeholder="Selet Date" type="date" style="margin-top: 1vh;margin-bottom: 3vh;padding: 1vh; background: none; border:none; color: #7D021E;border-bottom: solid 0.2vh;" id="theday">'+
+                    '<input placeholder="Select Time" min="14:00:00" max="22:00:00" type="time" style="margin-top: 1vh;margin-bottom: 3vh;padding: 1vh; background: none; border:none; color: #7D021E;border-bottom: solid 0.2vh;" id="thetime">'+
                     '<label>Mobile Number</label>'+
                     '<input type="text" placeholder="+4470467783734" id="b_number">'+
                     '<div class="content row_style">'+
@@ -189,6 +190,7 @@ confirm_ticket=()=>
             '</div>';
 
 }
+
 bookticket_admin=()=>
 {
     var d = new Date();
@@ -203,10 +205,14 @@ bookticket_admin=()=>
     var price=document.getElementById('shown_price').innerHTML;
     var event=document.getElementById('vent_id').innerHTML;
     var event_name=document.getElementById('vent_name').innerHTML;
+    var indexing=event_name.slice(0, 4);
+    indexing=indexing.replace(/ /g, "").toLowerCase();
     var email_=document.getElementById('b_email').value;
     var mobile_number=document.getElementById('b_number').value;
-    var scheduleDay=document.getElementById('theday').value;
-    var payid="ST-"+scheduleDay;
+    var datee=document.getElementById('theday').value;
+    var timee=document.getElementById('thetime').value;
+    var scheduleDay=datee+"-"+timee;
+    var payid=indexing+"-"+datee+"-"+timee;
     var user=database.ref("/tickets_booking/"+payid);
     var r = confirm("Please collect £"+price+" from the customer. Click 'OK' to confirm ticket booking");
   if (r == true) {

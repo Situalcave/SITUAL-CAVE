@@ -17,23 +17,19 @@
   console.log(storage);
   bookticket=()=>
 {
-    
-    var d = new Date();
-    var hrs=d.getHours();
-    var mins=d.getMinutes();
-    var sec=d.getSeconds();
-    var date=d.getDate();
-    var month=d.getMonth();
-    var year=d.getFullYear();
-/*    var t_date="ST-"+date+""+month+""+year+""+hrs;*/
-
+    var value=sessionStorage.getItem('value');
     var name=document.getElementById("name").value;
     //var payid=document.getElementById("r_number").value;
     var payid="Booked Online! Please Ask For Payment Recipt";
     var mobile_number=document.getElementById("b_number").value;
-    var ddate=document.getElementById("booking_day").value;
-    var t_date="ST-"+ddate;
-    var user=database.ref("/tickets_booking/"+t_date);
+    var ddate=sessionStorage.getItem('date');
+    var dtime=sessionStorage.getItem('time');
+    var schedule=ddate+"-"+dtime;
+    var user=database.ref("/tickets_booking/"+value);
+    console.log(value);
+    if(value===null || value===""){
+      window.location.replace("index.html");
+    }
     if(payid=="" || name=="" || ddate=="")
     {
         alert("Erro occured!");
@@ -54,10 +50,11 @@
             cost:["In Recipt"],
             email:[name],
             mobile:[mobile_number],
-            schedule:[ddate]
+            schedule:[schedule]
 
-        });
-        alert("Your Reservation number is '"+t_date+"' Please keep it in a safe place.");
+        })
+        sessionStorage.clear();
+        alert("Your Reservation number is '"+value+"' Please keep it in a safe place.");
         document.getElementById("reserveBTN").style.display="none";
         setTimeout(()=>
           {
@@ -68,13 +65,10 @@
 
                 }
           });
-            /*user.update*/
-        
-        
-        //admin_ability();
+
     }
 }
-
+try{
 (function() {
   "use strict";
 
@@ -358,8 +352,15 @@
   });
 
 })();
+}
+catch(e)
+{
+  console.log(e.code);
+}
+
 event_getter=()=>
 {
+  sessionStorage.clear();
   document.getElementById('events').innerHTML="";
   var d = new Date();
   var addedYear=d.getDate()+"-"+d.getMonth()+"-"+d.getFullYear();
@@ -375,6 +376,9 @@ event_getter=()=>
       var count=data.numChildren();
       console.log(newdata);
       DID="id-"+key;
+      var indexing=newdata.title[0].slice(0, 4);
+      indexing=indexing.replace(/ /g, "").toLowerCase();
+      console.log(DID);
       document.getElementById('events').innerHTML+='<div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">'+
             '<div class="member">'+
               '<div class="member-img">'+
@@ -385,7 +389,8 @@ event_getter=()=>
                 '<span>'+newdata.location[0]+'</span>'+
                 '<p style="text-align:left;">'+newdata.body[0]+'<br><b>Price : £'+newdata.price[0]+'</b></p>'+
                 '<p style="margin-top: -4vh;text-align:left;"><b>Check Avaliablity</b><br></p>'+
-                '<input placeholder="2021-06-10T10:30" min="'+mindate+'" type="datetime-local" style="margin-top: -3vh;margin-bottom: 3vh;padding: 1vh; background: none; border:none; color: #7D021E;border-bottom: solid 0.2vh;" id="booking_day" onchange=checkReservations(this.value,"'+DID+'")>'+
+                '<input placeholder="Selet Date" type="date" style="margin-top: -3vh;margin-bottom: 3vh;padding: 1vh; background: none; border:none; color: #7D021E;border-bottom: solid 0.2vh;" id="booking_date-'+indexing+'" onchange=checkReservations("'+DID+'","'+indexing+'")>'+
+                '<input placeholder="Select Time" min="14:00:00" max="22:00:00" type="time" style="margin-top: -3vh;margin-bottom: 3vh;padding: 1vh; background: none; border:none; color: #7D021E;border-bottom: solid 0.2vh;" id="booking_time-'+indexing+'" onchange=checkReservations("'+DID+'","'+indexing+'")>'+
                 '<a class="getstarted scrollto" href="'+newdata.url[0]+'" style="display:none; padding: 1.5vh;background:#027D61;color:#fff;border-radius: 1vh;" id="'+DID+'">Book Now</a>'+/*<a class="getstarted scrollto" id='+key+' onclick=buynow(this.id,"'+newdata.price[0]+'")>Book now</a>*/
               '</div>'+
             '</div>'+
@@ -400,12 +405,41 @@ event_getter=()=>
   });
     
 }
-checkReservations=(value,x)=>
+checkHours=(x)=>
 {
-    //var ddate=document.getElementById("booking_day").value;
-    var t_date="ST-"+value;
-    console.log(t_date);
-    var user=database.ref("/tickets_booking/"+t_date);
+  var d= new Date();
+  console.log(d.getDay());
+    var time=sessionStorage.getItem("time").slice(0, 2);
+    console.log(time);
+    if(time<=22 && time>=14)
+    {
+        console.log("can work now!");
+        document.getElementById(x).style.display="block";
+
+    }
+    else{
+        console.log("cant work now!");
+        document.getElementById(x).style.display="none";
+    }
+}
+checkReservations=(x,eventName)=>
+{ 
+    var dateroute="booking_date-"+eventName;
+    var timeroute="booking_time-"+eventName;
+    var ddate=document.getElementById(dateroute).value;
+    var dtime=document.getElementById(timeroute).value;
+    var value=eventName+"-"+ddate+"-"+dtime;
+    sessionStorage.setItem("value", value);
+    sessionStorage.setItem("date", ddate);
+    sessionStorage.setItem("time", dtime);
+    if(ddate==="" || dtime==="")
+    {
+      console.log("got nothing from null");
+      document.getElementById(x).style.display="none";
+    }
+    else
+    {
+      var user=database.ref("/tickets_booking/"+value);
     
             user.once('value', function(snapshot) {
                 var exists = (snapshot.val() !== null);
@@ -417,8 +451,12 @@ checkReservations=(value,x)=>
                 } else {
                 //alert("your selected date/time is avaliable!");
                 document.getElementById(x).style.display="block";
+                checkHours(x);
             }
               });
+    }
+    //console.log(value);
+    
     
 }
 buynow=(event,price)=>
