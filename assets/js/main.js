@@ -408,13 +408,24 @@ event_getter=()=>
 checkHours=(x)=>
 {
   var d= new Date();
-  console.log(d.getDay());
+    console.log(d.getDay());
     var time=sessionStorage.getItem("time").slice(0, 2);
-    console.log(time);
+    var timereverse=sessionStorage.getItem("time").slice(3, 5);
+    console.log(timereverse);
     if(time<=22 && time>=14)
     {
-        console.log("can work now!");
-        document.getElementById(x).style.display="block";
+        
+        if(timereverse!=="00")
+        {
+          console.log("Hours is not");
+          document.getElementById(x).style.display="none";
+        }
+        else
+        {
+          //console.log("can work now!");
+          document.getElementById(x).style.display="block";
+        }
+
 
     }
     else{
